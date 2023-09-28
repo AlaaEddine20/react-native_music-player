@@ -1,7 +1,7 @@
 import React from "react";
-import { TextInput, View } from "react-native";
+import { KeyboardAvoidingView, TextInput, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { Container, Input } from "../styles/StyledSearchBar";
+import { Container, IconWrapper, Input } from "../styles/StyledSearchBar";
 
 const SearchBar = () => {
   return (
@@ -10,22 +10,11 @@ const SearchBar = () => {
         placeholder="Search here"
         placeholderTextColor="grey"
         numberOfLines={1}
-        style={{ width: "100%" }}
+        style={{ width: "100%", height: "100%" }}
       />
-      <View
-        style={{
-          position: "relative",
-          left: -20,
-          backgroundColor: "#e78200",
-          width: 25,
-          height: 25,
-          borderRadius: 12.5,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <IconWrapper>
         <AntDesign name="search1" size={15} color="white" />
-      </View>
+      </IconWrapper>
     </Container>
   );
 };
