@@ -1,14 +1,16 @@
 import React from "react";
-import { SafeAreaView } from "react-native";
+import { ScrollView, TouchableWithoutFeedback } from "react-native";
 import Header from "../components/Header";
 import UserGreeting from "./UserGreeting";
+import PopularSongs from "../components/PopularSongs";
 
 const Home = () => {
   return (
-    <SafeAreaView>
+    <ScrollView>
       <Header />
       <UserGreeting />
-    </SafeAreaView>
+      <PopularSongs />
+    </ScrollView>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Image } from "react-native";
 import { AppHeader } from "../styles/StyledHeader";
 import SearchBar from "./SearchBar";
 
