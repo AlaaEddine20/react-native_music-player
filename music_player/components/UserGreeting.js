@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
-import { Container, ProfilePic, Greeting } from "../styles/StyledUserGreeting";
+import { Text, Image } from "react-native";
+import { Container, Greeting } from "../styles/StyledUserGreeting";
 
 const UserGreeting = () => {
   return (
