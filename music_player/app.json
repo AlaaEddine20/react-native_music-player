@@ -4,10 +4,10 @@
     "slug": "music_player",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/appLogo.png",
+    "icon": "./assets/appLogo2.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/appLogo.png",
+      "image": "./assets/appLogo2.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
