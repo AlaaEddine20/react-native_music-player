@@ -4,7 +4,7 @@ export const Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
   gap: 10px;
-  margin-top: 30px;
+  margin-top: 40px;
 `;
 
 export const Greeting = styled.View`

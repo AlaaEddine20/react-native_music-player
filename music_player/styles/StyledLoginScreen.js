@@ -7,8 +7,17 @@ export const LoginScreenContainer = styled.View`
 `;
 
 export const Input = styled.TextInput`
-  border: 0.5px solid grey;
-  border-radius: 50px;
+  border-bottom-width: 0.7px;
+  border-bottom-color: #650d88;
+  width: 250px;
+  padding: 8px 0;
+`;
+
+export const LoginBtn = styled.Pressable`
   width: 250px;
   padding: 12px;
+  border-radius: 50px;
+  background-color: #650d88;
+  margin-top: 30px;
+  align-items: center;
 `;
