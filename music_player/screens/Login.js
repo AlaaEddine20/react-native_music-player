@@ -25,9 +25,16 @@ const Login = () => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
       >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <TouchableWithoutFeedback
+          onPress={Keyboard.dismiss}
+          style={{ flex: 1 }}
+        >
           <LoginScreenContainer>
-            <Image source={require("../assets/appLogo2.png")} />
+            <Image
+              source={require("../assets/logo-no-background3.png")}
+              resizeMode="contain"
+              style={{ width: 200, height: 150 }}
+            />
             <Text style={{ fontSize: 20, fontWeight: 600, color: "#650d88" }}>
               Welcome
             </Text>
