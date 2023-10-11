@@ -7,8 +7,6 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  Button,
-  Pressable,
 } from "react-native";
 import React from "react";
 import {
@@ -31,7 +29,7 @@ const Login = () => {
         >
           <LoginScreenContainer>
             <Image
-              source={require("../assets/logo-no-background3.png")}
+              source={require("../assets/logo-no-background.png")}
               resizeMode="contain"
               style={{ width: 200, height: 150 }}
             />
@@ -42,16 +40,13 @@ const Login = () => {
               <Input placeholder="Email" />
               <Input placeholder="Password" style={{ marginTop: 15 }} />
             </View>
-            <Text style={{ marginTop: 20, fontSize: 12 }}>
-              Don't have an account?
-              <Link
-                to={{ screen: "Register", params: "register" }}
-                style={{ color: "#e78200" }}
-              >
-                {" "}
-                Register here
-              </Link>
-            </Text>
+
+            <Link
+              to={{ screen: "Register", params: "register" }}
+              style={{ marginTop: 30, fontSize: 12, color: "#e78200" }}
+            >
+              Create a new account
+            </Link>
             <LoginBtn>
               <Text style={{ color: "#fff", fontSize: 16, fontWeight: 700 }}>
                 Login
