@@ -1,22 +1,67 @@
-import { View, Text, SafeAreaView, Pressable } from "react-native";
-import React from "react";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Image,
+  Pressable,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
+  ActivityIndicator,
+} from "react-native";
 import { RegisterAccountContainer } from "../styles/StyledRegisterScreen";
-import { Ionicons } from "@expo/vector-icons";
+import { Input } from "../styles/StyledLoginScreen";
 
-const Register = ({ navigation }) => {
+const RegisterPage = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <RegisterAccountContainer>
-        <Pressable
-          onPress={() => navigation.goBack()}
-          style={{ flexDirection: "row", alignItems: "center" }}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
+      >
+        <TouchableWithoutFeedback
+          onPress={Keyboard.dismiss}
+          style={{ flex: 1 }}
         >
-          <Ionicons name="arrow-back" size={24} color="black" />
-          <Text style={{ marginLeft: 10, fontSize: 15 }}>Back</Text>
-        </Pressable>
-      </RegisterAccountContainer>
+          <RegisterAccountContainer>
+            <Image
+              source={require("../assets/logo-no-background.png")}
+              resizeMode="contain"
+              style={{ width: 200, height: 150 }}
+            />
+            <Text style={{ fontSize: 20, fontWeight: 600, color: "#650d88" }}>
+              Welcome
+            </Text>
+            <View style={{ marginTop: 40, gap: 20 }}>
+              <Input
+                placeholder="Email"
+                autoCapitalize="none"
+                value={email}
+                onChangeText={setEmail}
+              />
+              <Input
+                placeholder="Password"
+                autoCapitalize="none"
+                secureTextEntry={true}
+                style={{ marginTop: 15 }}
+                value={password}
+                onChangeText={setPassword}
+              />
+            </View>
+            <Pressable>
+              <Text>Sign up</Text>
+            </Pressable>
+          </RegisterAccountContainer>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
 
-export default Register;
+export default RegisterPage;

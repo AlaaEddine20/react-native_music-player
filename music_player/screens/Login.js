@@ -7,16 +7,38 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  ActivityIndicator,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import {
   Input,
   LoginBtn,
   LoginScreenContainer,
 } from "../styles/StyledLoginScreen";
 import { Link } from "@react-navigation/native";
+import { FIREBASE_AUTH } from "../FirebaseConfig";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const auth = FIREBASE_AUTH;
+
+  const handleSubmit = () => {
+    console.log("EMAIL: ", email, "PASSWORD: ", password);
+  };
+
+  const ButtonContent = () => {
+    return isLoading ? (
+      <ActivityIndicator size={"small"} color={"#fff"} />
+    ) : (
+      <Text style={{ color: "#fff", fontSize: 16, fontWeight: 700 }}>
+        Login
+      </Text>
+    );
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fcfcfc" }}>
       <KeyboardAvoidingView
@@ -37,8 +59,20 @@ const Login = () => {
               Welcome
             </Text>
             <View style={{ marginTop: 40, gap: 20 }}>
-              <Input placeholder="Email" />
-              <Input placeholder="Password" style={{ marginTop: 15 }} />
+              <Input
+                placeholder="Email"
+                autoCapitalize="none"
+                value={email}
+                onChangeText={setEmail}
+              />
+              <Input
+                placeholder="Password"
+                autoCapitalize="none"
+                secureTextEntry={true}
+                style={{ marginTop: 15 }}
+                value={password}
+                onChangeText={setPassword}
+              />
             </View>
 
             <Link
@@ -47,11 +81,7 @@ const Login = () => {
             >
               Create a new account
             </Link>
-            <LoginBtn>
-              <Text style={{ color: "#fff", fontSize: 16, fontWeight: 700 }}>
-                Login
-              </Text>
-            </LoginBtn>
+            <LoginBtn onPress={handleSubmit}>{ButtonContent}</LoginBtn>
           </LoginScreenContainer>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
