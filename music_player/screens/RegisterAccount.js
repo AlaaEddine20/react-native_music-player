@@ -4,20 +4,68 @@ import {
   Text,
   SafeAreaView,
   Image,
-  Pressable,
   KeyboardAvoidingView,
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  ActivityIndicator,
+  Alert,
 } from "react-native";
-import { RegisterAccountContainer } from "../styles/StyledRegisterScreen";
+import {
+  RegisterAccountContainer,
+  SignUpBtn,
+} from "../styles/StyledRegisterScreen";
 import { Input } from "../styles/StyledLoginScreen";
+import ButtonContent from "../utils/utility";
+import { FIREBASE_AUTH } from "../FirebaseConfig";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 const RegisterPage = ({ navigation }) => {
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const auth = FIREBASE_AUTH;
+
+  const handleSubmit = async () => {
+    setIsLoading(true);
+    let errorOccured = false;
+
+    try {
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      await updateProfile(response.user, {
+        displayName: userName,
+      });
+    } catch (error) {
+      console.log(error);
+      errorOccured = true;
+
+      if (error.code === "auth/email-already-in-use") {
+        alert(
+          "Email is already in use. Please sign in or use a different email."
+        );
+      } else if (error.code === "auth/invalid-email") {
+        alert("Invalid email format. Please check your email and try again.");
+      } else if (error.code === "auth/weak-password") {
+        alert(
+          "Password may be less than 6 characters or weak. Please choose a stronger password."
+        );
+      } else {
+        alert("An error occurred. Please try again.");
+      }
+    } finally {
+      setIsLoading(false);
+
+      if (!errorOccured) {
+        navigation.navigate("Login");
+      }
+    }
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -40,13 +88,19 @@ const RegisterPage = ({ navigation }) => {
             </Text>
             <View style={{ marginTop: 40, gap: 20 }}>
               <Input
+                placeholder="Choose a username"
+                autoCapitalize="none"
+                value={userName}
+                onChangeText={setUserName}
+              />
+              <Input
                 placeholder="Email"
                 autoCapitalize="none"
                 value={email}
                 onChangeText={setEmail}
               />
               <Input
-                placeholder="Password"
+                placeholder="Choose a password"
                 autoCapitalize="none"
                 secureTextEntry={true}
                 style={{ marginTop: 15 }}
@@ -54,9 +108,9 @@ const RegisterPage = ({ navigation }) => {
                 onChangeText={setPassword}
               />
             </View>
-            <Pressable>
-              <Text>Sign up</Text>
-            </Pressable>
+            <SignUpBtn onPress={handleSubmit}>
+              {ButtonContent("Sign up", isLoading)}
+            </SignUpBtn>
           </RegisterAccountContainer>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

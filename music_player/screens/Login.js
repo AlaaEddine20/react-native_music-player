@@ -7,7 +7,6 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import {
@@ -17,26 +16,39 @@ import {
 } from "../styles/StyledLoginScreen";
 import { Link } from "@react-navigation/native";
 import { FIREBASE_AUTH } from "../FirebaseConfig";
+import ButtonContent from "../utils/utility";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useUser } from "../context/userContext";
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const auth = FIREBASE_AUTH;
+  const { dispatch } = useUser();
 
-  const handleSubmit = () => {
-    console.log("EMAIL: ", email, "PASSWORD: ", password);
-  };
+  const handleSubmit = async () => {
+    setIsLoading(true);
 
-  const ButtonContent = () => {
-    return isLoading ? (
-      <ActivityIndicator size={"small"} color={"#fff"} />
-    ) : (
-      <Text style={{ color: "#fff", fontSize: 16, fontWeight: 700 }}>
-        Login
-      </Text>
-    );
+    let errorOccured = false;
+
+    try {
+      const userData = await signInWithEmailAndPassword(auth, email, password);
+      dispatch({ type: "LOGIN", payload: userData });
+    } catch (error) {
+      console.log(error);
+      errorOccured = true;
+
+      if (error.code === "auth/invalid-login-credentials") {
+        alert("Wrong credentials, please check your email and password!");
+      }
+    } finally {
+      setIsLoading(false);
+      if (!errorOccured) {
+        navigation.navigate("Home");
+      }
+    }
   };
 
   return (
@@ -81,7 +93,9 @@ const Login = () => {
             >
               Create a new account
             </Link>
-            <LoginBtn onPress={handleSubmit}>{ButtonContent}</LoginBtn>
+            <LoginBtn onPress={handleSubmit}>
+              {ButtonContent("Login", isLoading)}
+            </LoginBtn>
           </LoginScreenContainer>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
