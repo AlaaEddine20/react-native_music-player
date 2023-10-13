@@ -1,7 +1,8 @@
 import React from "react";
-import { Text, Image } from "react-native";
+import { Text, Image, View } from "react-native";
 import { Container, Greeting } from "../styles/StyledUserGreeting";
 import { useUser } from "../context/userContext";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const UserGreeting = () => {
   const { state } = useUser();
@@ -11,7 +12,10 @@ const UserGreeting = () => {
     <Container>
       <Greeting>
         <Text style={{ fontSize: 20 }}>Welcome back,</Text>
-        <Text style={{ fontSize: 25 }}>{user.displayName}</Text>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+          <Text style={{ fontSize: 25 }}>{user.displayName}</Text>
+          <MaterialIcons name="logout" size={24} color="black" />
+        </View>
       </Greeting>
       <Image
         source={{ uri: "https://loremflickr.com/320/240" }}
