@@ -11,12 +11,12 @@ export const Container = styled.View`
 `;
 
 export const IconWrapper = styled.View`
-  position: relative;
+  position: absolute;
   right: 0;
   background-color: #e78200;
-  width: 25px;
-  height: 25px;
-  border-radius: 12.5px;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
   justify-content: center;
   align-items: center;
 `;
