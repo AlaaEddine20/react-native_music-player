@@ -19,6 +19,7 @@ import { FIREBASE_AUTH } from "../FirebaseConfig";
 import ButtonContent from "../utils/utility";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useUser } from "../context/userContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -36,6 +37,7 @@ const Login = ({ navigation }) => {
     try {
       const userData = await signInWithEmailAndPassword(auth, email, password);
       dispatch({ type: "LOGIN", payload: userData });
+      await AsyncStorage.setItem("userData", JSON.stringify(userData));
     } catch (error) {
       console.log(error);
       errorOccured = true;
