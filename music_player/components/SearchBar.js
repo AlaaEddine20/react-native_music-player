@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { Container, IconWrapper } from "../styles/StyledSearchBar";
+import { Container, IconWrapper } from "../styles/SearchBar";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -17,7 +17,8 @@ import Animated, {
 } from "react-native-reanimated";
 
 const SearchBar = () => {
-  const [value, setValue] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchText, setSearchText] = useState("");
 
   const animation = useSharedValue(0);
   const animatedStyle = useAnimatedStyle(() => {
@@ -28,6 +29,17 @@ const SearchBar = () => {
           : withTiming(0, { duration: 200 }),
     };
   });
+
+  const handleSearchClick = () => {
+    if (animation.value === 1) {
+      animation.value = 0;
+      setIsOpen(false);
+      setSearchText("");
+    } else {
+      animation.value = 1;
+      setIsOpen(true);
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -43,7 +55,7 @@ const SearchBar = () => {
               position: "relative",
             },
             animatedStyle,
-            value == 1 && border,
+            isOpen && border,
           ]}
         >
           <TextInput
@@ -51,20 +63,12 @@ const SearchBar = () => {
             placeholderTextColor="grey"
             numberOfLines={1}
             style={{ width: "100%" }}
+            onChange={(e) => setSearchText(e.target.value)}
+            value={searchText}
           />
           <IconWrapper>
-            <TouchableOpacity
-              onPress={() => {
-                if (animation.value === 1) {
-                  animation.value = 0;
-                  setValue(0);
-                } else {
-                  animation.value = 1;
-                  setValue(1);
-                }
-              }}
-            >
-              {value === 1 ? (
+            <TouchableOpacity onPress={handleSearchClick}>
+              {isOpen ? (
                 <AntDesign name="close" size={15} color="white" />
               ) : (
                 <AntDesign name="search1" size={15} color="white" />

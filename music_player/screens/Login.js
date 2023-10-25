@@ -9,11 +9,7 @@ import {
   Keyboard,
 } from "react-native";
 import React, { useState } from "react";
-import {
-  Input,
-  LoginBtn,
-  LoginScreenContainer,
-} from "../styles/StyledLoginScreen";
+import { Input, LoginBtn, LoginScreenContainer } from "../styles/LoginScreen";
 import { Link } from "@react-navigation/native";
 import { FIREBASE_AUTH } from "../FirebaseConfig";
 import ButtonContent from "../utils/utility";
@@ -27,6 +23,7 @@ const Login = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const auth = FIREBASE_AUTH;
+
   const { dispatch } = useUser();
 
   const handleSubmit = async () => {
@@ -35,9 +32,12 @@ const Login = ({ navigation }) => {
     let errorOccured = false;
 
     try {
-      const userData = await signInWithEmailAndPassword(auth, email, password);
-      dispatch({ type: "LOGIN", payload: userData });
-      await AsyncStorage.setItem("userData", JSON.stringify(userData));
+      const user = await signInWithEmailAndPassword(auth, email, password);
+
+      if (user) {
+        dispatch({ type: "LOGIN", payload: user });
+        await AsyncStorage.setItem("user", JSON.stringify(user));
+      }
     } catch (error) {
       console.log(error);
       errorOccured = true;
@@ -88,7 +88,6 @@ const Login = ({ navigation }) => {
                 onChangeText={setPassword}
               />
             </View>
-
             <Link
               to={{ screen: "Register", params: "register" }}
               style={{ marginTop: 30, fontSize: 12, color: "#e78200" }}

@@ -1,15 +1,15 @@
 import React from "react";
 import { Image, View } from "react-native";
-import { AppHeader } from "../styles/StyledHeader";
+import { AppHeader } from "../styles/Header";
 import SearchBar from "./SearchBar";
 
 const Header = () => {
   return (
     <AppHeader>
       <Image
-        source={require("../assets/appLogo2.png")}
+        source={require("../assets/logo-no-background3.png")}
         style={{ width: 100, height: 50 }}
-        resizeMode="cover"
+        resizeMode="contain"
       />
       <SearchBar />
     </AppHeader>

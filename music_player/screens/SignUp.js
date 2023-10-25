@@ -8,64 +8,17 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert,
 } from "react-native";
-import {
-  RegisterAccountContainer,
-  SignUpBtn,
-} from "../styles/StyledRegisterScreen";
-import { Input } from "../styles/StyledLoginScreen";
+import { RegisterAccountContainer, SignUpBtn } from "../styles/SignUp";
+import { Input } from "../styles/LoginScreen";
 import ButtonContent from "../utils/utility";
-import { FIREBASE_AUTH } from "../FirebaseConfig";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { SignUp } from "../api/SignUp";
 
-const RegisterPage = ({ navigation }) => {
+const SignUpPage = ({ navigation }) => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const auth = FIREBASE_AUTH;
-
-  const handleSubmit = async () => {
-    setIsLoading(true);
-    let errorOccured = false;
-
-    try {
-      const response = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-      await updateProfile(response.user, {
-        displayName: userName,
-      });
-    } catch (error) {
-      console.log(error);
-      errorOccured = true;
-
-      if (error.code === "auth/email-already-in-use") {
-        alert(
-          "Email is already in use. Please sign in or use a different email."
-        );
-      } else if (error.code === "auth/invalid-email") {
-        alert("Invalid email format. Please check your email and try again.");
-      } else if (error.code === "auth/weak-password") {
-        alert(
-          "Password may be less than 6 characters or weak. Please choose a stronger password."
-        );
-      } else {
-        alert("An error occurred. Please try again.");
-      }
-    } finally {
-      setIsLoading(false);
-
-      if (!errorOccured) {
-        navigation.navigate("Login");
-      }
-    }
-  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -108,7 +61,11 @@ const RegisterPage = ({ navigation }) => {
                 onChangeText={setPassword}
               />
             </View>
-            <SignUpBtn onPress={handleSubmit}>
+            <SignUpBtn
+              onPress={() =>
+                SignUp({ email, password, userName, setIsLoading, navigation })
+              }
+            >
               {ButtonContent("Sign up", isLoading)}
             </SignUpBtn>
           </RegisterAccountContainer>
@@ -118,4 +75,4 @@ const RegisterPage = ({ navigation }) => {
   );
 };
 
-export default RegisterPage;
+export default SignUpPage;

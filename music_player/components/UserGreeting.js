@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, Image, View } from "react-native";
-import { Container, Greeting } from "../styles/StyledUserGreeting";
+import { Container, Greeting } from "../styles/UserGreeting";
 import { useUser } from "../context/userContext";
 import { MaterialIcons } from "@expo/vector-icons";
 

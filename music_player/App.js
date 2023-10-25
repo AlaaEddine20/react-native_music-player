@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
-import RegisterPage from "./screens/RegisterAccount";
+import SignUpPage from "./screens/SignUp";
 import { UserProvider } from "./context/userContext";
 
 const Stack = createNativeStackNavigator();
@@ -24,7 +24,7 @@ export default function App() {
           />
           <Stack.Screen
             name="Register"
-            component={RegisterPage}
+            component={SignUpPage}
             options={{
               headerShown: true,
               headerTitle: "",

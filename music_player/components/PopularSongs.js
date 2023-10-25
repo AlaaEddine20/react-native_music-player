@@ -5,7 +5,7 @@ import {
   BoxesContainer,
   Container,
   SectionHeading,
-} from "../styles/StyledPopularSongs";
+} from "../styles/PopularSongs";
 import { AntDesign } from "@expo/vector-icons";
 
 const PopularSongs = () => {
