@@ -12,8 +12,8 @@ const PopularSongs = () => {
   return (
     <Container>
       <SectionHeading>
-        <AntDesign name="rocket1" size={24} color="#650d88" />
-        <Text style={{ fontSize: 18 }}>Popular songs</Text>
+        <AntDesign name="rocket1" size={24} color="#fff" />
+        <Text style={{ fontSize: 18, color: "#fff" }}>Popular songs</Text>
       </SectionHeading>
       <BoxesContainer>
         <Box />

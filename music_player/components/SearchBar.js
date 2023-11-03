@@ -62,7 +62,7 @@ const SearchBar = () => {
             placeholder="Search here"
             placeholderTextColor="grey"
             numberOfLines={1}
-            style={{ width: "100%" }}
+            style={{ width: "100%", color: "#fff" }}
             onChange={(e) => setSearchText(e.target.value)}
             value={searchText}
           />

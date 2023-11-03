@@ -11,45 +11,46 @@ import {
 import React, { useState } from "react";
 import { Input, LoginBtn, LoginScreenContainer } from "../styles/LoginScreen";
 import { Link } from "@react-navigation/native";
-import { FIREBASE_AUTH } from "../FirebaseConfig";
 import ButtonContent from "../utils/utility";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { useUser } from "../context/userContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { FIREBASE_AUTH } from "../FirebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const { dispatch } = useUser();
   const auth = FIREBASE_AUTH;
 
-  const { dispatch } = useUser();
-
-  const handleSubmit = async () => {
+  const SignIn = async () => {
     setIsLoading(true);
-
     let errorOccured = false;
 
-    try {
-      const user = await signInWithEmailAndPassword(auth, email, password);
+    if (email && password) {
+      try {
+        const user = await signInWithEmailAndPassword(auth, email, password);
 
-      if (user) {
-        dispatch({ type: "LOGIN", payload: user });
-        await AsyncStorage.setItem("user", JSON.stringify(user));
-      }
-    } catch (error) {
-      console.log(error);
-      errorOccured = true;
+        if (user) {
+          dispatch({ type: "LOGIN", payload: user });
+        }
+      } catch (error) {
+        console.log(error);
+        errorOccured = true;
 
-      if (error.code === "auth/invalid-login-credentials") {
-        alert("Wrong credentials, please check your email and password!");
+        if (error.code === "auth/invalid-login-credentials") {
+          alert("Wrong credentials, please check your email and password!");
+        }
+      } finally {
+        setIsLoading(false);
+        if (!errorOccured) {
+          navigation.navigate("Home");
+        }
       }
-    } finally {
+    } else {
       setIsLoading(false);
-      if (!errorOccured) {
-        navigation.navigate("Home");
-      }
+      alert("Please type in your email and password!");
     }
   };
 
@@ -94,7 +95,7 @@ const Login = ({ navigation }) => {
             >
               Create a new account
             </Link>
-            <LoginBtn onPress={handleSubmit}>
+            <LoginBtn onPress={SignIn}>
               {ButtonContent("Login", isLoading)}
             </LoginBtn>
           </LoginScreenContainer>
