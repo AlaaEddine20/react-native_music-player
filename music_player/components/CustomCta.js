@@ -1,6 +1,6 @@
 import { ActivityIndicator, Text } from "react-native";
 
-const ButtonContent = (ctaLabel, isLoading) => {
+const CustomCta = (ctaLabel, isLoading) => {
   return isLoading ? (
     <ActivityIndicator size={"small"} color={"#fff"} />
   ) : (
@@ -10,4 +10,4 @@ const ButtonContent = (ctaLabel, isLoading) => {
   );
 };
 
-export default ButtonContent;
+export default CustomCta;

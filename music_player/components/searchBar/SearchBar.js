@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { Container, IconWrapper } from "../styles/SearchBar";
+import { Container, IconWrapper } from "./styles";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,

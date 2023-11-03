@@ -4,6 +4,7 @@ export const LoginScreenContainer = styled.View`
   flex: 1;
   padding: 50px 15px 0;
   align-items: center;
+  height: 100%;
 `;
 
 export const Input = styled.TextInput`

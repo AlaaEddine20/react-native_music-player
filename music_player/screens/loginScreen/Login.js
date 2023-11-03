@@ -9,12 +9,12 @@ import {
   Keyboard,
 } from "react-native";
 import React, { useState } from "react";
-import { Input, LoginBtn, LoginScreenContainer } from "../styles/LoginScreen";
+import { Input, LoginBtn, LoginScreenContainer } from "./styles";
 import { Link } from "@react-navigation/native";
-import ButtonContent from "../utils/utility";
-import { useUser } from "../context/userContext";
-import { FIREBASE_AUTH } from "../FirebaseConfig";
+import { useUser } from "../../context/userContext";
+import { FIREBASE_AUTH } from "../../FirebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import CustomCta from "../../components/CustomCta";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -55,18 +55,18 @@ const Login = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#fcfcfc" }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
+        style={{ flex: 1, height: "100%" }}
       >
         <TouchableWithoutFeedback
           onPress={Keyboard.dismiss}
-          style={{ flex: 1 }}
+          style={{ flex: 1, height: "100%" }}
         >
           <LoginScreenContainer>
             <Image
-              source={require("../assets/logo-no-background.png")}
+              source={require("../../assets/logo-no-background.png")}
               resizeMode="contain"
               style={{ width: 200, height: 150 }}
             />
@@ -96,7 +96,7 @@ const Login = ({ navigation }) => {
               Create a new account
             </Link>
             <LoginBtn onPress={SignIn}>
-              {ButtonContent("Login", isLoading)}
+              {CustomCta("Login", isLoading)}
             </LoginBtn>
           </LoginScreenContainer>
         </TouchableWithoutFeedback>

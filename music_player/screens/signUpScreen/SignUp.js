@@ -9,9 +9,9 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import { RegisterAccountContainer, SignUpBtn } from "../styles/SignUp";
-import { Input } from "../styles/LoginScreen";
-import ButtonContent from "../utils/utility";
+import { RegisterAccountContainer, SignUpBtn } from "./styles";
+import { Input } from "../../screens/loginScreen/styles";
+import CustomCta from "../../components/CustomCta";
 
 const SignUpPage = ({ navigation }) => {
   const [userName, setUserName] = useState("");
@@ -75,7 +75,7 @@ const SignUpPage = ({ navigation }) => {
         >
           <RegisterAccountContainer>
             <Image
-              source={require("../assets/logo-no-background.png")}
+              source={require("../../assets/logo-no-background.png")}
               resizeMode="contain"
               style={{ width: 200, height: 150 }}
             />
@@ -105,7 +105,7 @@ const SignUpPage = ({ navigation }) => {
               />
             </View>
             <SignUpBtn onPress={SignUp}>
-              {ButtonContent("Sign up", isLoading)}
+              {CustomCta("Sign up", isLoading)}
             </SignUpBtn>
           </RegisterAccountContainer>
         </TouchableWithoutFeedback>

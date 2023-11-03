@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View } from "react-native";
-import { Container, Greeting } from "../styles/UserGreeting";
-import { useUser } from "../context/userContext";
+import { Container } from "./styles";
+import { useUser } from "../../context/userContext";
 
 const UserGreeting = () => {
   const { state } = useUser();
@@ -9,7 +9,7 @@ const UserGreeting = () => {
 
   return (
     <Container>
-      <Text style={{ fontSize: 20, color: "#fff" }}>
+      <Text style={{ fontSize: 20, color: "#F7EFE5" }}>
         Welcome back {user.displayName}
       </Text>
     </Container>

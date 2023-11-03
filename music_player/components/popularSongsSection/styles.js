@@ -20,7 +20,12 @@ export const BoxesContainer = styled.View`
 export const Box = styled.View`
   width: 48%;
   height: 100px;
-  background: #e78200;
+  background: #8e9aaf;
   border-radius: 10px;
   margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px;
 `;

@@ -6,7 +6,7 @@ export const BarContainer = styled.View`
   width: 100%;
   height: 80px;
   border-bottom-width: 0;
-  background-color: #1b263b;
+  background-color: rgba(0, 0, 0, 0.6);
   padding-bottom: 15px;
   z-index: 999;
   display: flex;
