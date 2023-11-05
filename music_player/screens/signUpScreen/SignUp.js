@@ -64,7 +64,7 @@ const SignUpPage = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#F5F5F5" }}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
@@ -79,7 +79,7 @@ const SignUpPage = ({ navigation }) => {
               resizeMode="contain"
               style={{ width: 200, height: 150 }}
             />
-            <Text style={{ fontSize: 20, fontWeight: 600, color: "#650d88" }}>
+            <Text style={{ fontSize: 20, fontWeight: 600, color: "#363062" }}>
               Welcome
             </Text>
             <View style={{ marginTop: 40, gap: 20 }}>

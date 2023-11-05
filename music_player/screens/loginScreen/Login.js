@@ -11,7 +11,6 @@ import {
 import React, { useState } from "react";
 import { Input, LoginBtn, LoginScreenContainer } from "./styles";
 import { Link } from "@react-navigation/native";
-import { useUser } from "../../context/userContext";
 import { FIREBASE_AUTH } from "../../FirebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import CustomCta from "../../components/CustomCta";
@@ -19,43 +18,46 @@ import CustomCta from "../../components/CustomCta";
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
-  const { dispatch } = useUser();
   const auth = FIREBASE_AUTH;
 
   const SignIn = async () => {
-    setIsLoading(true);
-    let errorOccured = false;
-
     if (email && password) {
       try {
         const user = await signInWithEmailAndPassword(auth, email, password);
 
         if (user) {
-          dispatch({ type: "LOGIN", payload: user });
+          console.log(user);
         }
+
+        // if (user) {
+        //   dispatch(loginSuccess(user));
+        // } else {
+        //   dispatch(loginFailure("Login failed: User not found"));
+        // }
       } catch (error) {
         console.log(error);
-        errorOccured = true;
 
-        if (error.code === "auth/invalid-login-credentials") {
-          alert("Wrong credentials, please check your email and password!");
-        }
+        // if (error.code === "auth/invalid-login-credentials") {
+        //   dispatch(
+        //     loginFailure(
+        //       "Wrong credentials, please check your email and password!"
+        //     )
+        //   );
+        // } else {
+        //   dispatch(loginFailure("An error occurred during login"));
+        // }
       } finally {
-        setIsLoading(false);
-        if (!errorOccured) {
-          navigation.navigate("Home");
-        }
+        navigation.navigate("Home");
       }
-    } else {
-      setIsLoading(false);
-      alert("Please type in your email and password!");
     }
+    //  else {
+    //   dispatch(loginFailure("Please type in your email and password!"));
+    // }
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#F5F5F5" }}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1, height: "100%" }}
@@ -70,7 +72,7 @@ const Login = ({ navigation }) => {
               resizeMode="contain"
               style={{ width: 200, height: 150 }}
             />
-            <Text style={{ fontSize: 20, fontWeight: 600, color: "#650d88" }}>
+            <Text style={{ fontSize: 20, fontWeight: 600, color: "#363062" }}>
               Welcome
             </Text>
             <View style={{ marginTop: 40, gap: 20 }}>
@@ -95,9 +97,7 @@ const Login = ({ navigation }) => {
             >
               Create a new account
             </Link>
-            <LoginBtn onPress={SignIn}>
-              {CustomCta("Login", isLoading)}
-            </LoginBtn>
+            <LoginBtn onPress={SignIn}>{CustomCta("Login", null)}</LoginBtn>
           </LoginScreenContainer>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
