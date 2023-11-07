@@ -22,4 +22,5 @@ export const Box = styled.View`
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 1px 1px 2px;
 `;

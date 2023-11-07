@@ -2,19 +2,29 @@ import React from "react";
 import { Text, View } from "react-native";
 import { Box, BoxesContainer, SectionHeading } from "./styles";
 import { MaterialIcons } from "@expo/vector-icons";
+import { PRIMARY_ORANGE, PRIMARY_WHITE } from "../../variables/colors";
 
 const Categories = () => {
   return (
     <View style={{ marginTop: 50 }}>
       <SectionHeading>
-        <MaterialIcons name="category" size={24} color="#e78200" />
-        <Text style={{ fontSize: 18, color: "#e78200" }}>Categories</Text>
+        <MaterialIcons
+          name="category"
+          size={24}
+          color="#363062"
+          style={{
+            textShadowColor: "rgba(0, 0, 0, 0.55)",
+            textShadowOffset: { width: 1, height: 2 },
+            textShadowRadius: 1,
+          }}
+        />
+        <Text style={{ fontSize: 18, color: PRIMARY_ORANGE }}>Categories</Text>
       </SectionHeading>
       <BoxesContainer>
         {Genres.map((c, i) => {
           return (
             <Box key={i}>
-              <Text style={{ color: "#F5F5F5", fontWeight: 600 }}>
+              <Text style={{ color: PRIMARY_WHITE, fontWeight: 600 }}>
                 {c.categoryName}
               </Text>
             </Box>

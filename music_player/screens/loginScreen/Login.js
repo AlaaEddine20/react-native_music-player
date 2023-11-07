@@ -15,20 +15,15 @@ import { FIREBASE_AUTH } from "../../FirebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import CustomCta from "../../components/CustomCta";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  login,
-  onErrorLogin,
-  isLoggingIn,
-  isLoggedIn,
-} from "../../redux/loginReducer";
+import { login, setError, setLoading } from "../../redux/loginReducer";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const errorLogin = useSelector((state) => state.auth.isError);
-  const errorMsg = useSelector((state) => state.auth.errorMsg);
-  const isLoading = useSelector((state) => state.auth.isLoading);
+  const errorLogin = useSelector((state) => state.error.isError);
+  const errorMsg = useSelector((state) => state.error.errorMsg);
+  const isLoading = useSelector((state) => state.loading.isLoading);
 
   const auth = FIREBASE_AUTH;
   const dispatch = useDispatch();
@@ -37,25 +32,31 @@ const Login = ({ navigation }) => {
     if (errorLogin) {
       alert(errorMsg);
     }
+    return;
   }, [errorLogin]);
 
   const SignIn = async () => {
     try {
-      dispatch(isLoggingIn());
+      dispatch(setLoading(true));
       const user = await signInWithEmailAndPassword(auth, email, password);
 
       if (user && !errorLogin) {
         dispatch(login(user));
         navigation.navigate("Home");
-        dispatch(isLoggedIn());
       }
+      dispatch(setLoading(false));
     } catch (error) {
       console.log(error);
 
       if (error.code === "auth/invalid-login-credentials") {
-        dispatch(onErrorLogin("Wrong Credentials!"));
+        dispatch(setError("Wrong Credentials!"));
+        setLoading(false);
       } else if (error.code === "auth/invalid-email") {
-        dispatch(onErrorLogin("Wrong email address"));
+        dispatch(setError("Wrong email address"));
+        setLoading(false);
+      } else {
+        dispatch(setError(error.code));
+        setLoading(false);
       }
     }
   };

@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import { SECONDARY_DARK_PURPLE } from "../../variables/colors";
 
 export const SectionHeading = styled.View`
   flex-direction: row;
@@ -16,7 +17,7 @@ export const BoxesContainer = styled.View`
 export const Box = styled.View`
   width: 48%;
   height: 100px;
-  background: #363062;
+  background: ${SECONDARY_DARK_PURPLE};
   border-radius: 10px;
   margin-top: 15px;
   display: flex;
@@ -24,4 +25,5 @@ export const Box = styled.View`
   align-items: center;
   justify-content: space-around;
   padding: 10px;
+  box-shadow: 1px 1px 2px;
 `;

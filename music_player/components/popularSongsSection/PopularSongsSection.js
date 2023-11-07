@@ -2,13 +2,25 @@ import React from "react";
 import { Text, View } from "react-native";
 import { Box, BoxesContainer, SectionHeading } from "./styles";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { PRIMARY_ORANGE, PRIMARY_WHITE } from "../../variables/colors";
 
 const PopularSongs = () => {
   return (
     <View style={{ marginTop: 40 }}>
       <SectionHeading>
-        <AntDesign name="rocket1" size={24} color="#e78200" />
-        <Text style={{ fontSize: 18, color: "#e78200" }}>Popular songs</Text>
+        <AntDesign
+          name="rocket1"
+          size={24}
+          color="#363062"
+          style={{
+            textShadowColor: "rgba(0, 0, 0, 0.55)",
+            textShadowOffset: { width: 1, height: 1 },
+            textShadowRadius: 1,
+          }}
+        />
+        <Text style={{ fontSize: 18, color: PRIMARY_ORANGE }}>
+          Popular songs
+        </Text>
       </SectionHeading>
       <BoxesContainer>
         {SongBoxesData.map((a, i) => {
@@ -18,12 +30,12 @@ const PopularSongs = () => {
                 <MaterialCommunityIcons
                   name="play-speed"
                   size={30}
-                  color="#F5F5F5"
+                  color={PRIMARY_WHITE}
                 />
               </View>
               <View style={{ display: "flex", gap: 10 }}>
-                <Text style={{ color: "#F5F5F5" }}>{a.songName}</Text>
-                <Text style={{ color: "#F5F5F5" }}>{a.artistName}</Text>
+                <Text style={{ color: PRIMARY_WHITE }}>{a.songName}</Text>
+                <Text style={{ color: PRIMARY_WHITE }}>{a.artistName}</Text>
               </View>
             </Box>
           );
