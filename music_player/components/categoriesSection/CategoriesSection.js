@@ -1,43 +1,41 @@
 import React from "react";
-import { Text } from "react-native";
-import { Box, BoxesContainer, Container, SectionHeading } from "./styles";
+import { Text, View } from "react-native";
+import { Box, BoxesContainer, SectionHeading } from "./styles";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const Categories = () => {
   return (
-    <Container>
+    <View style={{ marginTop: 50 }}>
       <SectionHeading>
         <MaterialIcons name="category" size={24} color="#e78200" />
-        <Text style={{ fontSize: 18, color: "#F7EFE5" }}>Categories</Text>
+        <Text style={{ fontSize: 18, color: "#e78200" }}>Categories</Text>
       </SectionHeading>
       <BoxesContainer>
-        <Box>
-          <Text style={{ color: "#F7EFE5", fontWeight: 600 }}>Pop hits</Text>
-        </Box>
-        <Box>
-          <Text style={{ color: "#F7EFE5", fontWeight: 600 }}>Hip Hop</Text>
-        </Box>
-        <Box>
-          <Text style={{ color: "#F7EFE5", fontWeight: 600 }}>Dance</Text>
-        </Box>
-        <Box>
-          <Text style={{ color: "#F7EFE5", fontWeight: 600 }}>80's</Text>
-        </Box>
-        <Box>
-          <Text style={{ color: "#F7EFE5", fontWeight: 600 }}>90's</Text>
-        </Box>
-        <Box>
-          <Text style={{ color: "#F7EFE5", fontWeight: 600 }}>Rock</Text>
-        </Box>
-        <Box>
-          <Text style={{ color: "#F7EFE5", fontWeight: 600 }}>Latino</Text>
-        </Box>
-        <Box>
-          <Text style={{ color: "#F7EFE5", fontWeight: 600 }}>Chill</Text>
-        </Box>
+        {Genres.map((c, i) => {
+          return (
+            <Box key={i}>
+              <Text style={{ color: "#F5F5F5", fontWeight: 600 }}>
+                {c.categoryName}
+              </Text>
+            </Box>
+          );
+        })}
       </BoxesContainer>
-    </Container>
+    </View>
   );
 };
+
+const Genres = [
+  { categoryName: "Pop" },
+  { categoryName: "Rap" },
+  { categoryName: "Rock" },
+  { categoryName: "Dance" },
+  { categoryName: "Techno" },
+  { categoryName: "Rock" },
+  { categoryName: "Latino" },
+  { categoryName: "90's" },
+  { categoryName: "Jazz" },
+  { categoryName: "Classical" },
+];
 
 export default Categories;

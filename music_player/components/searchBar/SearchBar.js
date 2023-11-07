@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { Container, IconWrapper } from "./styles";
+import { IconWrapper } from "./styles";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -43,26 +43,15 @@ const SearchBar = () => {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "paddin g" : "height"}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <Animated.View
-          style={[
-            {
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              position: "relative",
-            },
-            animatedStyle,
-            isOpen && border,
-          ]}
-        >
+        <Animated.View style={[animatedDiv, animatedStyle, isOpen && border]}>
           <TextInput
             placeholder="Search here"
             placeholderTextColor="grey"
             numberOfLines={1}
-            style={{ width: "100%", color: "#fff" }}
+            style={{ width: "100%", color: "#F5F5F5" }}
             onChange={(e) => setSearchText(e.target.value)}
             value={searchText}
           />
@@ -87,6 +76,13 @@ const border = StyleSheet.create({
   borderRadius: 50,
   paddingVertical: 7.5,
   paddingHorizontal: 15,
+});
+
+const animatedDiv = StyleSheet.create({
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between",
+  position: "relative",
 });
 
 export default SearchBar;

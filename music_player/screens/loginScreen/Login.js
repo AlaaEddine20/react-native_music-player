@@ -8,52 +8,56 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input, LoginBtn, LoginScreenContainer } from "./styles";
 import { Link } from "@react-navigation/native";
 import { FIREBASE_AUTH } from "../../FirebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import CustomCta from "../../components/CustomCta";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  login,
+  onErrorLogin,
+  isLoggingIn,
+  isLoggedIn,
+} from "../../redux/loginReducer";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const errorLogin = useSelector((state) => state.auth.isError);
+  const errorMsg = useSelector((state) => state.auth.errorMsg);
+  const isLoading = useSelector((state) => state.auth.isLoading);
+
   const auth = FIREBASE_AUTH;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (errorLogin) {
+      alert(errorMsg);
+    }
+  }, [errorLogin]);
 
   const SignIn = async () => {
-    if (email && password) {
-      try {
-        const user = await signInWithEmailAndPassword(auth, email, password);
+    try {
+      dispatch(isLoggingIn());
+      const user = await signInWithEmailAndPassword(auth, email, password);
 
-        if (user) {
-          console.log(user);
-        }
-
-        // if (user) {
-        //   dispatch(loginSuccess(user));
-        // } else {
-        //   dispatch(loginFailure("Login failed: User not found"));
-        // }
-      } catch (error) {
-        console.log(error);
-
-        // if (error.code === "auth/invalid-login-credentials") {
-        //   dispatch(
-        //     loginFailure(
-        //       "Wrong credentials, please check your email and password!"
-        //     )
-        //   );
-        // } else {
-        //   dispatch(loginFailure("An error occurred during login"));
-        // }
-      } finally {
+      if (user && !errorLogin) {
+        dispatch(login(user));
         navigation.navigate("Home");
+        dispatch(isLoggedIn());
+      }
+    } catch (error) {
+      console.log(error);
+
+      if (error.code === "auth/invalid-login-credentials") {
+        dispatch(onErrorLogin("Wrong Credentials!"));
+      } else if (error.code === "auth/invalid-email") {
+        dispatch(onErrorLogin("Wrong email address"));
       }
     }
-    //  else {
-    //   dispatch(loginFailure("Please type in your email and password!"));
-    // }
   };
 
   return (
@@ -97,7 +101,9 @@ const Login = ({ navigation }) => {
             >
               Create a new account
             </Link>
-            <LoginBtn onPress={SignIn}>{CustomCta("Login", null)}</LoginBtn>
+            <LoginBtn onPress={SignIn}>
+              {CustomCta("Login", isLoading)}
+            </LoginBtn>
           </LoginScreenContainer>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

@@ -1,8 +1,9 @@
 import styled from "styled-components/native";
 
-export const Container = styled.View`
-  width: 200px;
-  border: 0.5px solid grey;
+export const InputText = styled.TextInput`
+  width: 100%;
+  border-width: 0.5px;
+  border-color: #f5f5f5;
   border-radius: 40px;
   flex-direction: row;
   align-items: center;

@@ -9,7 +9,10 @@ import Categories from "../../components/categoriesSection/CategoriesSection.js"
 const Home = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#4D4C7D" }}>
-      <ScrollView style={{ paddingHorizontal: 15 }}>
+      <ScrollView
+        style={{ paddingHorizontal: 15 }}
+        contentContainerStyle={{ paddingBottom: 60 }}
+      >
         <Header />
         <UserGreeting />
         <PopularSongs />

@@ -1,9 +1,5 @@
 import styled from "styled-components/native";
 
-export const Container = styled.View`
-  margin-top: 50px;
-`;
-
 export const SectionHeading = styled.View`
   flex-direction: row;
   align-items: center;
@@ -20,7 +16,7 @@ export const BoxesContainer = styled.View`
 export const Box = styled.View`
   width: 48%;
   height: 100px;
-  background: #8e9aaf;
+  background: #363062;
   border-radius: 10px;
   margin-top: 15px;
   display: flex;
