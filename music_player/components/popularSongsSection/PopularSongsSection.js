@@ -6,7 +6,7 @@ import { PRIMARY_ORANGE, PRIMARY_WHITE } from "../../variables/colors";
 
 const PopularSongs = () => {
   return (
-    <View style={{ marginTop: 40 }}>
+    <View style={{ flex: 1, marginTop: 40 }}>
       <SectionHeading>
         <AntDesign
           name="rocket1"

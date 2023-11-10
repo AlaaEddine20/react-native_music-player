@@ -14,49 +14,35 @@ import { Link } from "@react-navigation/native";
 import { FIREBASE_AUTH } from "../../FirebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import CustomCta from "../../components/CustomCta";
-import { useDispatch, useSelector } from "react-redux";
-import { login, setError, setLoading } from "../../redux/loginReducer";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuth } from "../../context/AuthContext";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const errorLogin = useSelector((state) => state.error.isError);
-  const errorMsg = useSelector((state) => state.error.errorMsg);
-  const isLoading = useSelector((state) => state.loading.isLoading);
+  const [isLoading, setIsLoading] = useState(false);
+  const { setUser } = useAuth();
 
   const auth = FIREBASE_AUTH;
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (errorLogin) {
-      alert(errorMsg);
-    }
-    return;
-  }, [errorLogin]);
 
   const SignIn = async () => {
     try {
-      dispatch(setLoading(true));
+      setIsLoading(true);
       const user = await signInWithEmailAndPassword(auth, email, password);
 
-      if (user && !errorLogin) {
-        dispatch(login(user));
+      if (user) {
+        await AsyncStorage.setItem("userLogged", JSON.stringify(user));
+        const userLogged = await AsyncStorage.getItem("userLogged");
+        const parsedUserData = await JSON.parse(userLogged);
+        setUser(parsedUserData);
+        setIsLoading(false);
         navigation.navigate("Home");
       }
-      dispatch(setLoading(false));
     } catch (error) {
       console.log(error);
-
-      if (error.code === "auth/invalid-login-credentials") {
-        dispatch(setError("Wrong Credentials!"));
-        setLoading(false);
-      } else if (error.code === "auth/invalid-email") {
-        dispatch(setError("Wrong email address"));
-        setLoading(false);
-      } else {
-        dispatch(setError(error.code));
-        setLoading(false);
+      setIsLoading(false);
+      if (error.code) {
+        alert(error.code.slice(5));
       }
     }
   };

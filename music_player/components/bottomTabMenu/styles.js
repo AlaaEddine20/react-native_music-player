@@ -14,3 +14,20 @@ export const BarContainer = styled.View`
   justify-content: space-around;
   align-items: center;
 `;
+
+export const ModalView = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+`;
+
+export const ModalBox = styled.View`
+  width: 250px;
+  height: 160px;
+  background-color: #fff;
+  border-radius: 8px;
+  justify-content: center;
+  gap: 25px;
+  padding: 20px;
+`;

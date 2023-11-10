@@ -6,7 +6,7 @@ import { PRIMARY_ORANGE, PRIMARY_WHITE } from "../../variables/colors";
 
 const Categories = () => {
   return (
-    <View style={{ marginTop: 50 }}>
+    <View style={{ flex: 1, marginTop: 50 }}>
       <SectionHeading>
         <MaterialIcons
           name="category"
