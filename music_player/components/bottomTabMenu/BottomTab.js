@@ -9,6 +9,12 @@ import {
 } from "react-native";
 import { FIREBASE_AUTH } from "../../FirebaseConfig";
 import { Text, View } from "react-native";
+import {
+  PRIMARY_LIGHT_PURPLE,
+  PRIMARY_ORANGE,
+  PRIMARY_WHITE,
+} from "../../variables/colors";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const BottomTabMenu = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,11 +25,9 @@ const BottomTabMenu = () => {
   const handleLogout = () => {
     try {
       setIsLoading(true);
-      setInterval(() => {
-        auth.signOut();
-        setIsLoading(false);
-        setModalVisible(false);
-      }, 1500);
+      auth.signOut();
+      setIsLoading(false);
+      setModalVisible(false);
     } catch (error) {
       console.log("Something went wrong: ", error);
     }
@@ -60,26 +64,59 @@ const BottomTabMenu = () => {
         <ModalView>
           <ModalBox>
             {isLoading ? (
-              <View style={{ alignItems: "center" }}>
+              <View style={{ alignItems: "center", justifyContent: "center" }}>
                 <ActivityIndicator size={"small"} color={"#fff"} />
                 <Text>Loggin out...</Text>
               </View>
             ) : (
               <React.Fragment>
                 <View>
-                  <Text>Are you sure you want to logout?</Text>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      textAlign: "center",
+                    }}
+                  >
+                    You are signin out, {"\n"}
+                    are you sure?
+                  </Text>
                 </View>
                 <View
                   style={{
                     flexDirection: "row",
                     justifyContent: "space-around",
+                    gap: 15,
                   }}
                 >
-                  <Pressable onPress={handleLogout}>
-                    <Text>Yes</Text>
+                  <Pressable
+                    onPress={handleLogout}
+                    style={{
+                      backgroundColor: "#186F65",
+                      width: "40%",
+                      paddingVertical: 5,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: 20,
+                    }}
+                  >
+                    <Text style={{ color: PRIMARY_WHITE, fontSize: 12 }}>
+                      Yes
+                    </Text>
                   </Pressable>
-                  <Pressable onPress={() => setModalVisible(!modalVisible)}>
-                    <Text>Cancel</Text>
+                  <Pressable
+                    onPress={() => setModalVisible(!modalVisible)}
+                    style={{
+                      backgroundColor: "#B2533E",
+                      width: "40%",
+                      paddingVertical: 6,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: 20,
+                    }}
+                  >
+                    <Text style={{ color: PRIMARY_WHITE, fontSize: 12 }}>
+                      Cancel
+                    </Text>
                   </Pressable>
                 </View>
               </React.Fragment>

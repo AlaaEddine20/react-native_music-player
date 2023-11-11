@@ -25,9 +25,8 @@ export const ModalView = styled.View`
 export const ModalBox = styled.View`
   width: 250px;
   height: 160px;
-  background-color: #fff;
+  background-color: #f5f5f5;
   border-radius: 8px;
-  justify-content: center;
-  gap: 25px;
-  padding: 20px;
+  gap: 35px;
+  padding: 30px 20px;
 `;

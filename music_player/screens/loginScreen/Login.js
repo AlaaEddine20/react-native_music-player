@@ -34,7 +34,7 @@ const Login = ({ navigation }) => {
         await AsyncStorage.setItem("userLogged", JSON.stringify(user));
         const userLogged = await AsyncStorage.getItem("userLogged");
         const parsedUserData = await JSON.parse(userLogged);
-        setUser(parsedUserData);
+        setUser(parsedUserData.user);
         setIsLoading(false);
         navigation.navigate("Home");
       }
