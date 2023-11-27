@@ -13,17 +13,18 @@ export const BoxesContainer = styled.View`
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
+  height: 50%;
 `;
-export const Box = styled.View`
-  width: 48%;
-  height: 100px;
-  background: ${SECONDARY_DARK_PURPLE};
+export const BoxImage = styled.View`
+  width: 100%;
+  height: 130px;
   border-radius: 10px;
-  margin-top: 15px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  padding: 10px;
   box-shadow: 1px 1px 2px;
+  overflow: hidden;
+`;
+
+export const BoxExternal = styled.View`
+  flex-direction: column;
+  width: 175px;
+  margin-top: 15px;
 `;
